@@ -1,0 +1,13 @@
+spring:
+  datasource:
+
+    #m每次使用都要改回来username: root
+    #    password: password
+    username: root
+    password: mysqlmima
+    url: jdbc:mysql://localhost:3306/mychat?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  config-location: classpath:mybatis/Mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml

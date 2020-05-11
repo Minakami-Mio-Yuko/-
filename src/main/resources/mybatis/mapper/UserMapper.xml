@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.miaomiao.wedding.demo.dao.UserMapper">
+
+    <resultMap type="com.miaomiao.wedding.demo.entity.User" id="userMap">
+        <id column="user_id" property="id"/>
+        <result column="user_name" property="username"/>
+        <result column="user_status" property="status"/>
+        <result column="user_sign" property="sign"/>
+        <result column="user_avatar" property="avatar"/>
+        <result column="user_role" property="role"/>
+        <result column="user_password" property="password"/>
+    </resultMap>
+    
+    
+    <select id="findfriend" parameterType="Integer" resultMap="userMap">
+        select * from user where user_id in(select friend_id from user_friends where user_id=#{_parameter})
+    </select>
+    
+    <update id="updatestatus" parameterType="com.miaomiao.wedding.demo.entity.User" >
+        update user set user_status=#{status} where user_id=#{id}
+    </update>
+
+<!--通过id查找用户-->
+    <select id="finduserById" parameterType="Integer" resultMap="userMap">
+        select * from user where user_id=#{_parameter}
+    </select>
+
+<!--    查找所有用户-->
+    <select id="findalluser" resultMap="userMap">
+        select user_name,user_id,user_sign,user_avatar from user
+    </select>
+
+<!--    通过用户名和密码查找用户-->
+    <select id="finduserByLogin" parameterType="com.miaomiao.wedding.demo.entity.User" resultMap="userMap">
+        select user_id from user where user_password=#{password} and user_name=#{username}
+    </select>
+
+
+
+
+</mapper>
