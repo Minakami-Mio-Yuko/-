@@ -25,7 +25,34 @@ public class Chatcontroller {
     @Autowired
     UserService userService;
 
+    //注册校验
+    @RequestMapping("/register")
+    @ResponseBody
+    public Map register(@RequestBody String data){
+        JSONObject jsonObject=JSONObject.parseObject(data);
+        User user=JSONObject.toJavaObject(jsonObject,User.class);
+        Map<String,String> map=new HashMap<>();
+        user.setStatus("offline");
+        user.setAvatar("pic/head/b.jpg");
+        user.setSign("测试数据");
+        user.setRole(0);
+        try {
+            Integer userid=userService.insertUser(user);
+            Integer book=userService.insertFriend(userid,1)+userService.insertFriend(1,userid);
+        }catch (Exception e){
+            map.put("code","1");
+            map.put("msg","注册失败，已有用户名");
+            return map;
+        }
+        map.put("code","0");
+        map.put("msg","注册成功");
+        return map;
 
+
+    }
+
+
+    //登录页面
     @RequestMapping("/login")
     public String login(){
         return "login";
@@ -33,15 +60,32 @@ public class Chatcontroller {
 
 
 
-    @RequestMapping("/chat")//返回用户主页
-    public String chat(HttpSession session,@RequestBody String data){
+    //登录校验
+    @RequestMapping("/loginval")
+    @ResponseBody
+    public Map chat(@RequestBody String data){
+        Map<String,String> map=new HashMap<>();
         JSONObject jsonObject=JSONObject.parseObject(data);
         User user=JSONObject.toJavaObject(jsonObject,User.class);
         user=userService.finduserByLogin(user);
-        Integer userid=user.getId();
+        if(user==null){
+            map.put("code","1");
+            map.put("msg","密码或账号错误");
+        }else{
+            Integer userid=user.getId();
+            map.put("code","0");
+            map.put("userid",userid.toString());
+        }
+        return map;
+    }
+
+    //返回主页面
+    @RequestMapping("/main")
+    public String main(HttpSession session,Integer userid){
         session.setAttribute("userid",userid);
         return "layimchat";
     }
+
 
 
     @RequestMapping("/init")//初始化聊天面板

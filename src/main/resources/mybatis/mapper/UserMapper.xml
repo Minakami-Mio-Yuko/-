@@ -14,12 +14,23 @@
         <result column="user_role" property="role"/>
         <result column="user_password" property="password"/>
     </resultMap>
+
+<!--插入用户-->
+    <insert id="insertUser" parameterType="com.miaomiao.wedding.demo.entity.User" useGeneratedKeys="true" keyColumn="user_id" keyProperty="id">
+        insert into user(user_name,user_status,user_sign,user_avatar,user_role,user_password) values (#{username},#{status},#{sign},#{avatar},#{role},#{password})
+    </insert>
+
+<!--    增加朋友-->
+    <insert id="insertFriend" parameterType="Integer">
+        insert into user_friends(user_id,friend_id) values (#{userid},#{friendid})
+    </insert>
     
-    
+<!--    查找朋友-->
     <select id="findfriend" parameterType="Integer" resultMap="userMap">
         select * from user where user_id in(select friend_id from user_friends where user_id=#{_parameter})
     </select>
-    
+
+<!--    更新用户在线状态-->
     <update id="updatestatus" parameterType="com.miaomiao.wedding.demo.entity.User" >
         update user set user_status=#{status} where user_id=#{id}
     </update>

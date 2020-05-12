@@ -14,4 +14,6 @@ public interface UserService {
     List<User> findalluser();
     public void updatestatus(User para);
     User finduserByLogin(User user);
+    Integer insertUser(User user);
+    Integer insertFriend(Integer userid,Integer friendid);
 }

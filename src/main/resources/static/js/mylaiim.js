@@ -78,7 +78,6 @@ layui.use('layim', function(){
             });
         }else if(res.data.substring(0,7)=="offline"){
             layim.setFriendStatus(res.data.substring(7), 'offline'); //设置指定好友在线，即头像置灰
-
         } else if(res.data.substring(0,6)=="online"){
             layim.setFriendStatus(res.data.substring(6), 'online'); //设置指定好友在线，即头像高亮
         } else {

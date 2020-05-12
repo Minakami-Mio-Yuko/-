@@ -132,13 +132,20 @@
             $('#loginBtn').val("正在登录...");
             $.ajax({
                 type:'post',
-                url:'/chat',
-                dataType:'html',//返回html
+                url:'/loginval',
+                dataType:'json',//返回json
                 data:JSON.stringify(params),//将JavaScript对象转换为json字符串
                 contentType:'application/json',
                 success:function (data) {
                     layer.close(loginLoadIndex);
-                    document.write(data);
+                    //var jsonobject = JSON.parse(data);
+                    if(data.code=='1'){
+                        layer.alert(data.msg);
+                        $('#loginBtn').val("登录");
+                    }else {
+                        window.location.href="/main?userid="+data.userid;
+                    }
+
                 },
                 error:function () {
                     layer.close(loginLoadIndex);
@@ -165,22 +172,27 @@
                 var registerWellPassword = $('#registerWellPassword').val();
                 var params = {};
                 if(registerPassword!=registerWellPassword){
-                    layer.alert("两次输入密码不一样")
+                    layer.alert("两次输入密码不一样");
                     return false;
                 }
-                params.registerUsername = registerUsername;
-                params.registerPassword = registerPassword;
-                params.registerWellPassword = registerWellPassword;
+                params.Username = registerUsername;
+                params.Password = registerPassword;
                 var registerLoadIndex = layer.load(2);
                 $.ajax({
                     type:'post',
-                    url:window.location.protocol+'//'+window.location.host+'/security-web/register.do',
+                    url:'/register',
                     dataType:'json',
                     data:JSON.stringify(params),
                     contentType:'application/json',
                     success:function (data) {
-                        layer.close(registerLoadIndex);
-                        layer.msg(data);
+                        if(data.code=="1"){
+                            layer.close(registerLoadIndex);
+                            layer.msg(data.msg);
+                        }else{
+                            layer.close(registerLoadIndex);
+                            layer.msg(data.msg);
+                        }
+
                     },
                     error:function () {
                         layer.close(registerLoadIndex);

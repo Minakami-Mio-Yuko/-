@@ -3,10 +3,7 @@ package com.miaomiao.wedding.demo.dao;
 
 import com.miaomiao.wedding.demo.entity.Group;
 import com.miaomiao.wedding.demo.entity.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -41,6 +38,12 @@ public interface UserMapper {
 
     //更新用户状态
     public void updatestatus(User para);
+
+    //插入用户
+    public Integer insertUser(User user);
+
+    //插入好友
+    public Integer insertFriend(@Param("userid") Integer userid,@Param("friendid") Integer friendid);
 
 
 

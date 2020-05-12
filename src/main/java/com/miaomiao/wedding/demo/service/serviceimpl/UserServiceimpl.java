@@ -55,4 +55,15 @@ public class UserServiceimpl implements UserService {
     public User finduserByLogin(User user) {
        return userMapper.finduserByLogin(user);
     }
+
+    @Override
+    public Integer insertUser(User user) {
+        userMapper.insertUser(user);
+        return user.getId();
+    }
+
+    @Override
+    public Integer insertFriend(Integer userid, Integer friendid) {
+        return userMapper.insertFriend(userid,friendid);
+    }
 }
