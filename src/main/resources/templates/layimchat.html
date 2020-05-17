@@ -2,26 +2,115 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="zh">
 <head>
     <meta charset="utf-8">
-    <title>官方代码测试</title>
+    <title>赛博朋克婚纱</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="layui/css/layui.css"  media="all">
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <link rel="stylesheet" href="css/DPlayer.min.css">
     <script th:inline="javascript">
         var userid = [[${session.userid}]];
     </script>
 </head>
 <body>
 
-<blockquote class="layui-elem-quote">
-    注意：LayIM 是基于 layui 的一款独立的付费组件，它是网页即时通讯 UI 解决方案，您购买授权后得到的是一套前端源代码，而服务端程序需自写。</blockquote>
+<div class="layui-row">
+<ul class="layui-nav layui-bg-cyan">
+    <li class="layui-nav-item layui-this" style="margin-left: 350px;"><a href="" style=" color: #fafafa;letter-spacing: 0;font-size:20px;text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135; ">赛博朋克婚纱摄影</a></li>
+    <li class="layui-nav-item " style="margin-left: 500px"><a href="">客照欣赏</a></li>
+    <li class="layui-nav-item" style="margin-left: 40px"><a href="">去哪拍</a></li>
+    <li class="layui-nav-item" style="margin-left: 40px"><a href="">定制服务</a></li>
+    <li class="layui-nav-item" style="margin-left: 40px">
+        <a href="javascript:;" >我的</a>
+        <dl class="layui-nav-child">
+            <dd><a href="">我的订单</a></dd>
+        </dl>
+    </li>
+</ul>
+</div>
+<!--导航栏结束-->
 
-<a class="layui-btn layui-btn-normal" href="http://layim.layui.com/" target="_blank">前去LayIM官网</a>
 
-<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-    <legend>聊天示例</legend>
-</fieldset>
+<div class="layui-carousel" id="test2" lay-filter="test2" style="margin-top: 15px;">
+    <div carousel-item="">
+        <div><img src="images/carousel/origin1.jpg" width="100%" height="700px"></div>
+        <div><img src="images/carousel/origin2.jpg" width="100%" height="700px"></div>
+        <div><img src="images/carousel/origin3.jpg" width="100%" height="700px"></div>
+        <div><img src="images/carousel/origin4.jpg" width="100%" height="700px"></div>
+    </div>
+</div>
+<!--轮播结束-->
+
+<div class="layui-row" style="margin-top: 100px">
+
+    <h1 align="center" style="font-size: 40px">专业旅拍15年 超100万新人选择</h1>
+</div>
+<div class="layui-row" style="margin-top: 20px">
+    <h2 align="center" style="color: #c2c2c2;font-size: 30px">甄选全球200大拍摄目的地</h2>
+</div>
+
+<div class="layui-container">
+<div class="layui-row">
+    <div class="layui-row-md3"></div>
+<div class="layui-row-md6" style="margin-top: 20px">
+    <fieldset class="layui-elem-field layui-field-title " style="margin-top: 20px;">
+        <legend>关于我们</legend>
+    </fieldset>
+    <div  style="padding: 20px; background-color: #F2F2F2;">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">我们是谁</div>
+                    <div class="layui-card-body">
+                        赛博朋克婚纱摄影隶属于太阳帝国，创立于2020年，专注于“美而有趣的明星旅拍”，致力于打造明星旅拍专家
+                        技术与服务创新，为用户带来像明星般的高品质旅拍体验与多元美学风格
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">我们能提供怎样的服务</div>
+                    <div class="layui-card-body">
+                        24小时接机服务，专业免费接机服务，让你在异地也如在家般舒心<br>
+                        一对一定制服务，专属客服为您排忧解难<br>
+                        租赁新娘服务，让单身狗也能体验拍婚纱照的乐趣
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">获奖情况</div>
+                    <div class="layui-card-body">
+                        年度最佳婚纱摄影<br>
+                        美团点评最佳口碑商户<br>
+                        年度最佳旅拍单位<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="layui-row-md3"></div>
+</div>
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>过往品牌代言人</legend>
+    </fieldset>
+
+    <div class="layui-row">
+        <div class="layui-row-md-3"></div>
+        <div class="layui-row-md-6">
+            <div id="dplayer"></div>
+        </div>
+        <div class="layui-row-md-3"></div>
+    </div>
+</div>
+
+<div class="layui-row" style="margin-top: 50px"></div>
+
+
+
+
 
 
 
@@ -29,8 +118,9 @@
 
 <script src="js/jquery.js" charset="utf-8"></script>
 <script src="layui/layui.js" charset="utf-8"></script>
+<script src="js/DPlayer.min.js"></script>
+<script src="js/guestmain.js" charset="utf-8"></script>
 <script src="js/mylaiim.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 
 </body>

@@ -12,5 +12,6 @@ public class Myspringmvc implements WebMvcConfigurer {
             registry.addResourceHandler("/pic/head/**").addResourceLocations("file:/F:/喵喵婚纱/头像/");
         registry.addResourceHandler("/pic/image/**").addResourceLocations("file:/F:/喵喵婚纱/用户上传图片/");
         registry.addResourceHandler("/file/**").addResourceLocations("file:/F:/喵喵婚纱/用户上传文件/");
+        registry.addResourceHandler("/video/**").addResourceLocations("file:/F:/喵喵婚纱/视频/");
     }
 }
