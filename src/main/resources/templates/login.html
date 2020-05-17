@@ -142,7 +142,7 @@
                         layer.alert(data.msg);
                         $('#loginBtn').val("登录");
                     }else {
-                        window.location.href="/main?userid="+data.userid;
+                        window.location.href="/main?userid="+data.userid+"&userrole="+data.userrole;
                     }
 
                 },

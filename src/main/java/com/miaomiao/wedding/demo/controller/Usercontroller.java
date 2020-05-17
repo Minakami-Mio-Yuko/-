@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class Chatcontroller {
+public class Usercontroller {
 
     @Autowired
     UserService userService;
@@ -73,18 +73,35 @@ public class Chatcontroller {
             map.put("msg","密码或账号错误");
         }else{
             Integer userid=user.getId();
+            Integer userrole=user.getRole();
             map.put("code","0");
             map.put("userid",userid.toString());
+            map.put("userrole",userrole.toString());//返回角色代码
         }
         return map;
     }
 
-    //返回主页面
+    //根据角色代码返回主页面
     @RequestMapping("/main")
-    public String main(HttpSession session,Integer userid){
+    public String main(HttpSession session,Integer userid,Integer userrole){
         session.setAttribute("userid",userid);
-        return "layimchat";
+        session.setAttribute("now","main");
+        if(userrole==1){
+            return null;
+        }else {
+            return "guestmain";
+        }
+
     }
+
+    //返回用户定制服务页面
+    @RequestMapping("/guestservice")
+    public String guestservice(HttpSession session){
+        session.setAttribute("now","guestservice");
+        return "guestservice";
+    }
+
+
 
 
 

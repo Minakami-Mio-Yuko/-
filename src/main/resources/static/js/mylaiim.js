@@ -1,3 +1,5 @@
+//聊天js全部模块共用
+
 layui.use('layim', function(){
     var layim = layui.layim;
     console.log(userid);

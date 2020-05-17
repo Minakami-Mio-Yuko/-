@@ -47,7 +47,7 @@
 
 <!--    通过用户名和密码查找用户-->
     <select id="finduserByLogin" parameterType="com.miaomiao.wedding.demo.entity.User" resultMap="userMap">
-        select user_id from user where user_password=#{password} and user_name=#{username}
+        select user_id,user_role from user where user_password=#{password} and user_name=#{username}
     </select>
 
 
