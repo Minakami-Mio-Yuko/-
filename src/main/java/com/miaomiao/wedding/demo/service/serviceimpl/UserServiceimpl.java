@@ -1,8 +1,10 @@
 package com.miaomiao.wedding.demo.service.serviceimpl;
 
+import com.miaomiao.wedding.demo.dao.OrderMapper;
 import com.miaomiao.wedding.demo.dao.UserMapper;
 import com.miaomiao.wedding.demo.entity.Group;
 import com.miaomiao.wedding.demo.entity.JsonVo;
+import com.miaomiao.wedding.demo.entity.Order;
 import com.miaomiao.wedding.demo.entity.User;
 import com.miaomiao.wedding.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class UserServiceimpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    OrderMapper orderMapper;
 
     @Override
     public JsonVo init(Integer id) {
@@ -65,5 +69,10 @@ public class UserServiceimpl implements UserService {
     @Override
     public Integer insertFriend(Integer userid, Integer friendid) {
         return userMapper.insertFriend(userid,friendid);
+    }
+
+    @Override
+    public Integer insertOrder(Order order) {
+        return orderMapper.insertOrder(order);
     }
 }

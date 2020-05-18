@@ -101,6 +101,30 @@ public class Usercontroller {
         return "guestservice";
     }
 
+    //返回用户下单页面
+    @RequestMapping("/guestbuy")
+    public String guestbuy(HttpSession session){
+        session.setAttribute("now","guestbuy");
+        return "guestbuy";
+    }
+
+    //下单操作
+    @RequestMapping("/order")
+    @ResponseBody
+    public Map order(HttpSession session,@RequestBody String data){
+        Map<String,String> map=new HashMap<>();
+        Object attribute=session.getAttribute("userid");
+        Integer userid=(Integer)attribute;
+        JSONObject jsonObject=JSONObject.parseObject(data);
+        Order order=jsonObject.toJavaObject(jsonObject,Order.class);
+        order.setUserId(userid);
+        Integer code=userService.insertOrder(order);
+        if(code==1){
+            map.put("code",code.toString());
+        }
+        return "redirect:/main?userid="+userid+"&userole=0";
+    }
+
 
 
 

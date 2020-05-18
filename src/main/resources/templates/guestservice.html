@@ -17,7 +17,7 @@
     <ul class="layui-nav layui-bg-cyan">
         <li class="layui-nav-item " th:classappend="${session.now == 'main'} ? 'layui-this' : '' " style="margin-left: 350px;"><a th:href="@{'/main?userid='+${session.userid}+'&userrole=0'}" style=" color: #fafafa;letter-spacing: 0;font-size:20px;text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135; ">赛博朋克婚纱摄影</a></li>
         <li class="layui-nav-item " th:classappend="${session.now == 'guestphoto'} ? 'layui-this' : '' " style="margin-left: 500px"><a href="">客照欣赏</a></li>
-        <li class="layui-nav-item" th:classappend="${session.now == 'guestbuy'} ? 'layui-this' : '' " style="margin-left: 40px"><a href="">去哪拍</a></li>
+        <li class="layui-nav-item" th:classappend="${session.now == 'guestbuy'} ? 'layui-this' : '' " style="margin-left: 40px"><a href="/guestbuy">下单</a></li>
         <li class="layui-nav-item" th:classappend="${session.now == 'guestservice'} ? 'layui-this' : '' " style="margin-left: 40px"><a href="/guestservice">定制服务</a></li>
         <li class="layui-nav-item" th:classappend="${session.now == 'guestmine'} ? 'layui-this' : '' " style="margin-left: 40px">
             <a href="javascript:;" >我的</a>
@@ -34,7 +34,6 @@
 
     </div>
 <!--首页大图片结束-->
-
 
 
 <div class="container" style="width: 100%;margin-top: 50px ">
