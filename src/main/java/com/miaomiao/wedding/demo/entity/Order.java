@@ -8,7 +8,7 @@ public class Order {
     String orderDate;
     String orderArea;
     String orderCity;
-    Integer orderPhone;
+    String orderPhone;
     String orderWechat;
     String orderCameraman;
     Integer userId;
@@ -70,11 +70,11 @@ public class Order {
         this.orderCity = orderCity;
     }
 
-    public Integer getOrderPhone() {
+    public String getOrderPhone() {
         return orderPhone;
     }
 
-    public void setOrderPhone(Integer orderPhone) {
+    public void setOrderPhone(String orderPhone) {
         this.orderPhone = orderPhone;
     }
 

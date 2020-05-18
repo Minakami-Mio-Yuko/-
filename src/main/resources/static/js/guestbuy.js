@@ -56,31 +56,12 @@ layui.use(['form', 'laydate'], function(){
                 title: '提示'
             });
             return false;
-        } else {
-            $.ajax({
-                type:'post',
-                url:'/order',
-                dataType:'json',//返回json
-                data:JSON.stringify(data.field),//将JavaScript对象转换为json字符串
-                contentType:'application/json',
-                success:function (data) {
-
-                    if(data.code=='0'){
-                        layer.alert(data.msg);
-                    }else {
-                        window.location.href="/main?userid="+data.userid+"&userrole="+data.userrole;
-                    }
-
-                },
-                error:function () {
-                    layer.close(loginLoadIndex);
-                    $('#loginBtn').val("登录");
-                }
-            });
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            });
         }
+
+            // layer.alert(JSON.stringify(data.field), {
+            //     title: '最终的提交信息'
+            // });
+
 
     });
 
