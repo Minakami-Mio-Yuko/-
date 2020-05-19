@@ -75,4 +75,10 @@ public class UserServiceimpl implements UserService {
     public Integer insertOrder(Order order) {
         return orderMapper.insertOrder(order);
     }
+
+    @Override
+    public List<Order> findUserOrder(Integer userid) {
+        List list=orderMapper.findUserorder(userid);
+        return list;
+    }
 }

@@ -3,6 +3,16 @@ package com.miaomiao.wedding.demo.entity;
 public class JsonVo<T> {
     int code;//状态码
     String msg;//失败信息
+    int count;//解析目标字数
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     T data;//数据
 
     public int getCode() {

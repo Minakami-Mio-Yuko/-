@@ -110,14 +110,36 @@ public class Usercontroller {
 
     //下单操作
     @RequestMapping("/order")
-
     public String order(HttpSession session,Order order){
         Object attribute=session.getAttribute("userid");
         Integer userid=(Integer)attribute;
         order.setUserId(userid);
+        order.setOrderStatus("未完成");
+        order.setOrderCameraman("未指派");
         Integer code=userService.insertOrder(order);
-        return "/guestservice";
+        return "redirect:/guestmine";
     }
+
+    //返回我的订单页面
+    @RequestMapping("/guestmine")
+    public String guestmine(HttpSession session){
+        session.setAttribute("now","guestmine");
+        return "guestmine";
+    }
+
+    //处理订单表格请求
+    @RequestMapping("/myorder")
+    @ResponseBody
+    public JsonVo myorder(HttpSession session){
+        Object att=session.getAttribute("userid");
+        Integer userid=(Integer)att;
+        List list=userService.findUserOrder(userid);
+        JsonVo<List<Order>> jsonVo=new JsonVo(0,"",list);
+        jsonVo.setCount(1000);
+        return jsonVo;
+    }
+
+
 
 
 

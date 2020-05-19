@@ -1,8 +1,15 @@
-layui.use(['form', 'laydate'], function(){
+layui.use(['form', 'laydate','element'], function(){
     var form = layui.form
-        ,layer = layui.layer
+    ,   layer = layui.layer
+    ,   laydate = layui.laydate
+    ,   element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
 
-        ,laydate = layui.laydate;
+
+    //监听导航点击
+    element.on('nav(demo)', function(elem){
+        //console.log(elem)
+        layer.msg(elem.text());
+    });
 
     //日期
     laydate.render({

@@ -13,6 +13,15 @@ public class Order {
     String orderCameraman;
     Integer userId;
     String orderDesc;
+    String orderStatus;
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     public Integer getOrderId() {
         return orderId;

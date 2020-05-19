@@ -18,4 +18,5 @@ public interface UserService {
     Integer insertUser(User user);
     Integer insertFriend(Integer userid,Integer friendid);
     Integer insertOrder(Order order);
+    List<Order> findUserOrder(Integer userid);
 }
