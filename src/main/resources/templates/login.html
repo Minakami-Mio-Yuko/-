@@ -141,8 +141,10 @@
                     if(data.code=='1'){
                         layer.alert(data.msg);
                         $('#loginBtn').val("登录");
-                    }else {
+                    }else if(data.userrole=='0'){
                         window.location.href="/main?userid="+data.userid+"&userrole="+data.userrole;
+                    }else {
+                        window.location.href="/main?userid="+data.userid+"&userrole="+data.userrole+"&username="+data.username;
                     }
 
                 },

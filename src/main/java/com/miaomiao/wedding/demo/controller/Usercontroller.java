@@ -67,6 +67,7 @@ public class Usercontroller {
         Map<String,String> map=new HashMap<>();
         JSONObject jsonObject=JSONObject.parseObject(data);
         User user=JSONObject.toJavaObject(jsonObject,User.class);
+        String username=user.getUsername();
         user=userService.finduserByLogin(user);
         if(user==null){
             map.put("code","1");
@@ -77,18 +78,20 @@ public class Usercontroller {
             map.put("code","0");
             map.put("userid",userid.toString());
             map.put("userrole",userrole.toString());//返回角色代码
+            map.put("username",username);//返回用户名
         }
         return map;
     }
 
     //根据角色代码返回主页面
     @RequestMapping("/main")
-    public String main(HttpSession session,Integer userid,Integer userrole){
+    public String main(HttpSession session,Integer userid,Integer userrole,String username){
         session.setAttribute("userid",userid);
-        session.setAttribute("now","main");
         if(userrole==1){
-            return null;
+            session.setAttribute("username",username);
+            return "Manage";
         }else {
+            session.setAttribute("now","main");
             return "guestmain";
         }
 
@@ -127,7 +130,7 @@ public class Usercontroller {
         return "guestmine";
     }
 
-    //处理订单表格请求
+    //查找用户订单
     @RequestMapping("/myorder")
     @ResponseBody
     public JsonVo myorder(HttpSession session){
@@ -138,6 +141,8 @@ public class Usercontroller {
         jsonVo.setCount(1000);
         return jsonVo;
     }
+
+
 
 
 

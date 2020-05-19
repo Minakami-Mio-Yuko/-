@@ -9,6 +9,16 @@ public class Order {
     String orderArea;
     String orderCity;
     String orderPhone;
+    String orderDress;
+
+    public String getOrderDress() {
+        return orderDress;
+    }
+
+    public void setOrderDress(String orderDress) {
+        this.orderDress = orderDress;
+    }
+
     String orderWechat;
     String orderCameraman;
     Integer userId;

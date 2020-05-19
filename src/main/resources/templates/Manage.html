@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>赛博朋克</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script th:inline="javascript">
+        var userid = [[${session.userid}]];
+    </script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">赛 博 朋 克</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="pic/head/c.jpg" class="layui-nav-img">
+                    <span th:text="${session.username}"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">敬请期待</a></dd>
+                    <dd><a href="">敬请期待</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">订单管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/allorder">所有订单</a></dd>
+                        <dd><a href="javascript:;">未完成订单</a></dd>
+                        <dd><a href="javascript:;">已完成订单</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">摄影师管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">全部摄影师</a></dd>
+                        <dd><a href="javascript:;">未指派摄影师</a></dd>
+                        <dd><a href="javascript:;">已指派摄影师</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">官网客照管理</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <iframe id="iframeMain" src="" style="width: 100%;height:100%"></iframe>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        赛博朋克婚纱系统  -1079734065@qq.com
+    </div>
+</div>
+<script src="js/jquery.js" charset="utf-8"></script>
+<script src="layui/layui.js" charset="utf-8"></script>
+<script src="js/mylaiim.js" charset="utf-8"></script>
+<script src="js/Manage.js" charset="utf-8"></script>
+</body>
+</html>

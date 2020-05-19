@@ -46,7 +46,7 @@ layui.use(['form', 'laydate','element'], function(){
             $('#city').append(new Option("罗马", "罗马"));
             $('#city').append(new Option("普罗旺斯", "普罗旺斯"));
         }
-        layui.form.render('select');
+        form.render('select');
     })
 
 

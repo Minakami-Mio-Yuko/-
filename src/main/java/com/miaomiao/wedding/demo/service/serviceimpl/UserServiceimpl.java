@@ -81,4 +81,9 @@ public class UserServiceimpl implements UserService {
         List list=orderMapper.findUserorder(userid);
         return list;
     }
+
+    @Override
+    public List<Order> findAllorder() {
+        return orderMapper.findAllorder();
+    }
 }
