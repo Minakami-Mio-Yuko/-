@@ -79,6 +79,7 @@
                     //向服务端发送删除指令
                 });
             } else if(layEvent === 'edit'){ //编辑
+                var flag=obj.data.orderStatus=='完成'?true:false;
                 form.val("formtest",obj.data);
                 if(obj.data.orderArea=='东南亚'){
                     $('#city').html('<option value="">请选择城市</option>');
@@ -86,17 +87,39 @@
                     $('#city').append(new Option("普吉岛", "普吉岛"));
                     $('#city').append(new Option("日本", "日本"));
                     $('#city').append(new Option("马尔代夫", "马尔代夫"));
-                    form.render('select');
-                    form.val("formtest", {
-                        "orderCity":obj.data.orderCity
-                    });
+                }else if(obj.data.orderArea=='国内') {
+                    $('#city').html('<option value="">请选择城市</option>');
+                    $('#city').append(new Option("三亚", "三亚"));
+                    $('#city').append(new Option("丽江", "丽江"));
+                    $('#city').append(new Option("上海", "上海"));
+                    $('#city').append(new Option("大连", "大连"));
+                    $('#city').append(new Option("海南", "海南"));
+                    $('#city').append(new Option("青岛", "青岛"));
+                    $('#city').append(new Option("杭州", "杭州"));
+                    $('#city').append(new Option("温州", "温州"));
+                }else if(obj.data.orderArea=="欧洲海外"){
+                    $('#city').html('<option value="">请选择城市</option>');
+                    $('#city').append(new Option("巴黎", "巴黎"));
+                    $('#city').append(new Option("威尼斯", "威尼斯"));
+                    $('#city').append(new Option("布拉格", "布拉格"));
+                    $('#city').append(new Option("瑞士", "瑞士"));
+                    $('#city').append(new Option("罗马", "罗马"));
+                    $('#city').append(new Option("普罗旺斯", "普罗旺斯"));
                 }
+               form.render('select');
+               form.val("formtest", {
+                   "orderCity":obj.data.orderCity
+                   ,"orderStatus":flag
+               });
 
 
-                layer.open({
+               layer.open({
                     type:'1',
                     content:$('#editorder'),
                     title:'修改',
+                    area:'800px',
+                    btn:['修改','取消'],
+                    closeBtn:'2'
                     }
                 );
                 //同步更新缓存对应的值
@@ -108,9 +131,7 @@
         });
 
 
-function select(){
 
-}
 
 
         //表单动态地区下拉框
@@ -155,7 +176,7 @@ function select(){
 </script>
 
 </body>
-<div class="layui-row editPage" id="editorder">
+<div class="layui-row editPage" id="editorder" style="margin-top: 10px;">
     <div class="layui-col-md12">
         <form class="layui-form layui-form-pane" action="/order" method="post" lay-filter="formtest">
             <div class="layui-form-item">
@@ -244,17 +265,26 @@ function select(){
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-inline">摄影师选择</label>
+                <label class="layui-form-label">摄影师选择</label>
                 <div class="layui-input-block">
                     <select name="orderDress" lay-filter="aihao">
-                        <option value="">未指派</option>
+                        <option value=""></option>
+                        <option value="狂拽炫酷">狂拽炫酷</option>
+                        <option value="优雅大方" >优雅大方</option>
+                        <option value="大红袍">大红袍</option>
+                        <option value="传统">传统</option>
+                        <option value="黑色幽默">黑色幽默</option>
                     </select>
                 </div>
             </div>
 
-            <div class="layui-form-item">
-                <button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
+            <div class="layui-form-item" pane="">
+                <label class="layui-form-label">订单状态</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" checked="" name="orderStatus" lay-skin="switch" lay-filter="switchTest" title="开关" lay-text="完成|未完成">
+                </div>
             </div>
+
         </form>
     </div>
 </div>

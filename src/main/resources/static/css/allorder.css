@@ -1,4 +1,5 @@
 .editPage{
     /*background-color: #cccccc;*/
+    display: none;
     opacity: 0.75;
 }
