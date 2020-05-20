@@ -86,4 +86,9 @@ public class UserServiceimpl implements UserService {
     public List<Order> findAllorder() {
         return orderMapper.findAllorder();
     }
+
+    @Override
+    public List<String> freeCameraman() {
+        return orderMapper.freeCameraman();
+    }
 }

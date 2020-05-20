@@ -106,7 +106,7 @@
                     $('#city').append(new Option("罗马", "罗马"));
                     $('#city').append(new Option("普罗旺斯", "普罗旺斯"));
                 }
-               form.render('select');
+               cameraselect(obj.data.orderCameraman);//动态修改摄影师下拉列表,并选中
                form.val("formtest", {
                    "orderCity":obj.data.orderCity
                    ,"orderStatus":flag
@@ -119,7 +119,16 @@
                     title:'修改',
                     area:'800px',
                     btn:['修改','取消'],
-                    closeBtn:'2'
+                    closeBtn:'2',
+                    yes: function(index, layero){
+                        layero.find('form').find('button[lay-submit]').click();//模拟点击提交按钮
+                        layer.close(index);
+                   },
+                   btn2: function(index, layero){
+                       //按钮【按钮二】的回调
+                       layer.close(index);
+                   }
+
                     }
                 );
                 //同步更新缓存对应的值
@@ -132,6 +141,32 @@
 
 
 
+//异步请求摄影师数据
+function cameraselect(param){
+    if(param=="未指派"){
+        $('#camera').html('<option value="">请选择摄影师</option>');
+        $('#camera').append(new Option("未指派", "未指派",null,true));
+    }else{
+        $('#camera').html('<option value="">请选择摄影师</option>');
+        $('#camera').append(new Option("未指派", "未指派"));
+        $('#camera').append(new Option(param, param,null,true));
+    }
+    $.ajax({
+        type:'post',
+        url:'/freecameraman',
+        dataType:'json',
+        contentType:'application/json',
+        success:function (data) {
+            jQuery.each(data.cameralist, function(i,item){
+                $('#camera').append(new Option(item, item));
+            });
+            form.render('select');//重新渲染所有select选项
+        },
+        error:function () {
+            layer.alert("摄影师数据异常")
+        }
+    });
+}
 
 
         //表单动态地区下拉框
@@ -165,6 +200,38 @@
             }
             form.render('select');
         });
+
+
+
+        //监听提交
+        form.on('submit(demo2)', function(data){
+            if(data.field.orderArea==""||data.field.orderCity==""){//判断是否选择了城市
+                layer.alert("拍摄地点不可为空",{
+                    title: '提示'
+                });
+                return false;
+            }else if(data.field.orderDress==""){
+                layer.alert("婚纱样式不可为空",{
+                    title: '提示'
+                });
+                return false;
+            }else if(data.field.orderCameraman=="") {
+                layer.alert("摄影师如未指派，请选择未指派", {
+                    title: '提示'
+                });
+                return false;
+            }
+            layer.alert(JSON.stringify(data.field));
+            return false;
+
+
+
+            // layer.alert(JSON.stringify(data.field), {
+            //     title: '最终的提交信息'
+            // });
+        });
+
+
         //表单日期
         laydate.render({
             elem: '#date'
@@ -178,7 +245,7 @@
 </body>
 <div class="layui-row editPage" id="editorder" style="margin-top: 10px;">
     <div class="layui-col-md12">
-        <form class="layui-form layui-form-pane" action="/order" method="post" lay-filter="formtest">
+        <form class="layui-form layui-form-pane" action="" method="post" lay-filter="formtest">
             <div class="layui-form-item">
                 <label class="layui-form-label">男方姓名</label>
                 <div class="layui-input-inline">
@@ -267,13 +334,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">摄影师选择</label>
                 <div class="layui-input-block">
-                    <select name="orderDress" lay-filter="aihao">
-                        <option value=""></option>
-                        <option value="狂拽炫酷">狂拽炫酷</option>
-                        <option value="优雅大方" >优雅大方</option>
-                        <option value="大红袍">大红袍</option>
-                        <option value="传统">传统</option>
-                        <option value="黑色幽默">黑色幽默</option>
+                    <select name="orderCameraman" lay-filter="orderCameraman" id="camera">
+                        <option value="">请选择摄影师</option>
                     </select>
                 </div>
             </div>
@@ -283,6 +345,10 @@
                 <div class="layui-input-block">
                     <input type="checkbox" checked="" name="orderStatus" lay-skin="switch" lay-filter="switchTest" title="开关" lay-text="完成|未完成">
                 </div>
+            </div>
+
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit="" lay-filter="demo2">提交订单</button>
             </div>
 
         </form>

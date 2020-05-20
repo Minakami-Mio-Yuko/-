@@ -20,4 +20,5 @@ public interface UserService {
     Integer insertOrder(Order order);
     List<Order> findUserOrder(Integer userid);
     List<Order> findAllorder();
+    public List<String>freeCameraman();
 }

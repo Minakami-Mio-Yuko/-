@@ -10,6 +10,11 @@ public class Order {
     String orderCity;
     String orderPhone;
     String orderDress;
+    String orderWechat;
+    String orderCameraman;
+    Integer userId;
+    String orderDesc;
+    String orderStatus;
 
     public String getOrderDress() {
         return orderDress;
@@ -18,12 +23,6 @@ public class Order {
     public void setOrderDress(String orderDress) {
         this.orderDress = orderDress;
     }
-
-    String orderWechat;
-    String orderCameraman;
-    Integer userId;
-    String orderDesc;
-    String orderStatus;
 
     public String getOrderStatus() {
         return orderStatus;

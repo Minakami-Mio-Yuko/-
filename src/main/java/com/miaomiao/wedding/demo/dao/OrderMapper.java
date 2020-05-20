@@ -19,5 +19,8 @@ public interface OrderMapper {
     @Select("select * from orders")
     public List<Order>findAllorder();
 
+    @Select("select cameraman_name from cameraman where cameraman_status='空闲'")
+    public List<String>freeCameraman();
+
 
 }
