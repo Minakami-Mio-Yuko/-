@@ -1,9 +1,6 @@
 package com.miaomiao.wedding.demo.service;
 
-import com.miaomiao.wedding.demo.entity.Group;
-import com.miaomiao.wedding.demo.entity.JsonVo;
-import com.miaomiao.wedding.demo.entity.Order;
-import com.miaomiao.wedding.demo.entity.User;
+import com.miaomiao.wedding.demo.entity.*;
 
 import java.util.List;
 
@@ -21,4 +18,15 @@ public interface UserService {
     List<Order> findUserOrder(Integer userid);
     List<Order> findAllorder();
     public List<String>freeCameraman();
+    public Integer editorderA(Order order);
+    public Integer editorderB(Order order);
+    public List<Order>findDoneorder();
+    public List<Order>findUndoneorder();
+    public Integer deleteOrder(Integer orderId);
+    public List<CameraMan> allCameraman();
+    public Integer insertcameraman(CameraMan cameraMan);
+    public List<CameraMan> sendcameraman();
+    public List<CameraMan> unsendcameraman();
+    public Integer editcameraman(CameraMan cameraMan);
+    public Integer deletecameraman(Integer id);
 }

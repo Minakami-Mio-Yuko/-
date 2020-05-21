@@ -1,10 +1,14 @@
 package com.miaomiao.wedding.demo.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.miaomiao.wedding.demo.entity.CameraMan;
 import com.miaomiao.wedding.demo.entity.JsonVo;
 import com.miaomiao.wedding.demo.entity.Order;
+import com.miaomiao.wedding.demo.entity.User;
 import com.miaomiao.wedding.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,12 +27,52 @@ public class Managecontroller {
     public String allorder(){
         return "ManageOrder/allorder";
     }
+    //返回未完成订单页面，iframe页面
+    @RequestMapping("/undoneorder")
+    public String undoneorder(){
+        return "ManageOrder/undoneorder";
+    }
+    //返回完成订单页面，iframe页面
+    @RequestMapping("/doneorder")
+    public String doneorder(){
+        return "ManageOrder/doneorder";
+    }
+    //返回全部摄影师页面，iframe页面
+    @RequestMapping("/allcameraman")
+    public String allcameraman(){
+        return "ManageCameraman/allcameraman";
+    }
+    @RequestMapping("/sendcameraman")
+    public String sendcameraman(){return "ManageCameraman/sendcameraman";}
+    @RequestMapping("/unsendcameraman")
+    public String unsendcameraman(){return "ManageCameraman/unsendcameraman";}
+
 
     //返回全部订单表格
-    @RequestMapping("findallorder")
+    @RequestMapping("/findallorder")
     @ResponseBody
     public JsonVo findallorder(){
         List list=userService.findAllorder();
+        JsonVo<List<Order>> jsonVo=new JsonVo(0,"",list);
+        jsonVo.setCount(1000);
+        return jsonVo;
+    }
+
+    //返回已完成订单表格
+    @RequestMapping("/finddoneorder")
+    @ResponseBody
+    public JsonVo findoneorder(){
+        List list=userService.findDoneorder();
+        JsonVo<List<Order>> jsonVo=new JsonVo(0,"",list);
+        jsonVo.setCount(1000);
+        return jsonVo;
+    }
+
+    //返回未完成订单表格
+    @RequestMapping("/findundoneorder")
+    @ResponseBody
+    public JsonVo findundoneorder(){
+        List list=userService.findUndoneorder();
         JsonVo<List<Order>> jsonVo=new JsonVo(0,"",list);
         jsonVo.setCount(1000);
         return jsonVo;
@@ -47,21 +91,101 @@ public class Managecontroller {
     //接收修改后的订单
     @RequestMapping("/editorder")
     @ResponseBody
-    public Map editorder(Order order){
+    public Map editorder(@RequestBody String data){
+        JSONObject jsonObject=JSONObject.parseObject(data);
+        Order order=JSONObject.toJavaObject(jsonObject,Order.class);
         String status=order.getOrderStatus();
         Map map=new HashMap();
-        if(status.equals("未完成")){
+        if(status==null||status.equals("")){
             //第一步：先根据订单id返回之前摄影师的名字
             //第二步：根据该名字修改摄影师表对应摄影师状态（改为空闲）
             //第三步：修改订单摄影师名字以及其他项
             //第四步：修改摄影师表对应摄影师状态（改为工作）
+            order.setOrderStatus("未完成");
+            Integer i=userService.editorderA(order);
+            map.put("code",i.toString());
 
         }else{
+            order.setOrderCameraman("未指派");
             //第一步：先根据订单id返回之前摄影师的名字
             //第二步：根据该名字修改摄影师表对应摄影师状态（改为空闲）
             //第三步：直接将订单摄影师名字改为未指派
-
+            Integer i=userService.editorderB(order);
+            map.put("code",i.toString());
         }
+        return map;
+    }
+
+    //删除订单
+    @RequestMapping("/deleteorder")
+    @ResponseBody
+    public Map deleteorder(Integer orderId){
+        //第一步：先根据订单id返回之前摄影师的名字
+        //第二步：根据该名字修改摄影师表对应摄影师状态（改为空闲）
+        //第三步：删除订单
+        Map map=new HashMap();
+        Integer i=userService.deleteOrder(orderId);
+        map.put("code",i.toString());
+        return map;
+    }
+
+    //返回所有摄影师表格
+    @RequestMapping("/findallcamerman")
+    @ResponseBody
+    public JsonVo findAllcamerman(){
+        List list=userService.allCameraman();
+        JsonVo<List<Order>> jsonVo=new JsonVo(0,"",list);
+        jsonVo.setCount(1000);
+        return jsonVo;
+    }
+
+    //新增摄影师执行
+    @RequestMapping("/insertcameraman")
+    @ResponseBody
+    public Map insertcameraman(CameraMan cameraMan){
+        Integer i=userService.insertcameraman(cameraMan);
+        Map map=new HashMap();
+        map.put("code",i);
+        return map;
+    }
+
+    //返回已指派摄影师表格
+    @RequestMapping("/findsendcamerman")
+    @ResponseBody
+    public JsonVo findSendcamerman(){
+        List list=userService.sendcameraman();
+        JsonVo<List<Order>> jsonVo=new JsonVo(0,"",list);
+        jsonVo.setCount(1000);
+        return jsonVo;
+    }
+
+    //返回未指派摄影师表格
+    @RequestMapping("/findunsendcamerman")
+    @ResponseBody
+    public JsonVo findUnsendcamerman(){
+        List list=userService.unsendcameraman();
+        JsonVo<List<Order>> jsonVo=new JsonVo(0,"",list);
+        jsonVo.setCount(1000);
+        return jsonVo;
+    }
+
+    //删除摄影师执行
+    @RequestMapping("/deletecameraman")
+    @ResponseBody
+    public Map deletecameraman(Integer id){
+        Integer i=userService.deletecameraman(id);
+        Map map=new HashMap();
+        map.put("code",i);
+        return map;
+    }
+
+    //修改摄影师执行
+    @RequestMapping("/editcameraman")
+    @ResponseBody
+    public Map editcameraman(CameraMan cameraMan){
+        Integer i=userService.editcameraman(cameraMan);
+        Map map=new HashMap();
+        map.put("code",i);
         return map;
     }
 

@@ -28,29 +28,31 @@
 <script src="js/jquery.js" charset="utf-8"></script>
 
 <script src="layui/layui.js" charset="utf-8"></script>
+
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: red;"></i>
     </div>
 </script>
+
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs " lay-event="edit" >编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
 <script th:inline="none">
     layui.use(['form', 'laydate','table','layer'], function(){
         var table = layui.table
-        ,   layer=layui.layer
-        ,   form=layui.form
-        ,   laydate=layui.laydate;
+            ,   layer=layui.layer
+            ,   form=layui.form
+            ,   laydate=layui.laydate;
 
 
 
         //加载数据表格
         table.render({
             elem: '#test'
-            ,url:'/findallorder'
+            ,url:'/findundoneorder'
             ,toolbar: '#toolbarDemo'
             ,defaultToolbar: [null, "exports","print"]
             ,cols: [[
@@ -78,7 +80,7 @@
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 
-           if(layEvent === 'del'){ //删除
+            if(layEvent === 'del'){ //删除
                 layer.confirm('真的删除行么', function(index){
                     $.ajax({
                         type:'post',
@@ -89,9 +91,9 @@
                         dataType:'json',
                         success:function (data) {
                             table.reload('test', {
-                                url: '/findallorder'
+                                url: '/findundoneorder'
                             });//表格重载
-                           layer.msg("删除成功")
+                            layer.msg("删除成功")
                         },//向服务端发送删除指令
                         error:function () {
                             layer.alert("删除接口异常")
@@ -130,27 +132,27 @@
                     $('#city').append(new Option("罗马", "罗马"));
                     $('#city').append(new Option("普罗旺斯", "普罗旺斯"));
                 }
-               cameraselect(obj.data.orderCameraman);//动态修改摄影师下拉列表,并选中
-               form.val("formtest", {
-                   "orderCity":obj.data.orderCity
-                   ,"orderStatus":flag
-               });
+                cameraselect(obj.data.orderCameraman);//动态修改摄影师下拉列表,并选中
+                form.val("formtest", {
+                    "orderCity":obj.data.orderCity
+                    ,"orderStatus":flag
+                });
 
-               layer.open({
-                    type:'1',
-                    content:$('#editorder'),
-                    title:'修改',
-                    area:'800px',
-                    btn:['修改','取消'],
-                    closeBtn:'2',
-                    yes: function(index, layero){
-                        layero.find('form').find('button[lay-submit]').click();//模拟点击提交按钮
-                        layer.close(index);
-                   },
-                   btn2: function(index, layero){
-                       //按钮【按钮二】的回调
-                       layer.close(index);
-                   }
+                layer.open({
+                        type:'1',
+                        content:$('#editorder'),
+                        title:'修改',
+                        area:'800px',
+                        btn:['修改','取消'],
+                        closeBtn:'2',
+                        yes: function(index, layero){
+                            layero.find('form').find('button[lay-submit]').click();//模拟点击提交按钮
+                            layer.close(index);
+                        },
+                        btn2: function(index, layero){
+                            //按钮【按钮二】的回调
+                            layer.close(index);
+                        }
 
                     }
                 );
@@ -161,31 +163,31 @@
 
 
 //异步请求摄影师数据
-function cameraselect(param){
-    if(param=="未指派"){
-        $('#camera').html('<option value="">请选择摄影师</option>');
-        $('#camera').append(new Option("未指派", "未指派",null,true));
-    }else{
-        $('#camera').html('<option value="">请选择摄影师</option>');
-        $('#camera').append(new Option("未指派", "未指派"));
-        $('#camera').append(new Option(param, param,null,true));
-    }
-    $.ajax({
-        type:'post',
-        url:'/freecameraman',
-        dataType:'json',
-        contentType:'application/json',
-        success:function (data) {
-            jQuery.each(data.cameralist, function(i,item){
-                $('#camera').append(new Option(item, item));
+        function cameraselect(param){
+            if(param=="未指派"){
+                $('#camera').html('<option value="">请选择摄影师</option>');
+                $('#camera').append(new Option("未指派", "未指派",null,true));
+            }else{
+                $('#camera').html('<option value="">请选择摄影师</option>');
+                $('#camera').append(new Option("未指派", "未指派"));
+                $('#camera').append(new Option(param, param,null,true));
+            }
+            $.ajax({
+                type:'post',
+                url:'/freecameraman',
+                dataType:'json',
+                contentType:'application/json',
+                success:function (data) {
+                    jQuery.each(data.cameralist, function(i,item){
+                        $('#camera').append(new Option(item, item));
+                    });
+                    form.render('select');//重新渲染所有select选项
+                },
+                error:function () {
+                    layer.alert("摄影师数据异常")
+                }
             });
-            form.render('select');//重新渲染所有select选项
-        },
-        error:function () {
-            layer.alert("摄影师数据异常")
         }
-    });
-}
 
 
         //表单动态地区下拉框
@@ -248,7 +250,7 @@ function cameraselect(param){
                 contentType:'application/json',
                 success:function (data) {
                     table.reload('test', {
-                        url: '/findallorder'
+                        url: '/findundoneorder'
                     });//表格重载
                     layer.msg("修改成功");
                 },
