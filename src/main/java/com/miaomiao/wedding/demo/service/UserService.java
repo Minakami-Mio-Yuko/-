@@ -1,6 +1,7 @@
 package com.miaomiao.wedding.demo.service;
 
 import com.miaomiao.wedding.demo.entity.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -33,4 +34,6 @@ public interface UserService {
     public Integer pagecount(Integer pagesize);
     public List<Picture> manageallpicture();
     public Integer insertpic(Picture pic);
+    public Integer deletePic(Integer id);
+    public Integer editPic(String pictureName, Integer pictureId);
 }

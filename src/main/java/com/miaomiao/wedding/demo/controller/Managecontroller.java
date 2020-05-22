@@ -234,4 +234,28 @@ public class Managecontroller {
     }
 
 
+    //修改图片执行
+    @RequestMapping("/editpicture")
+    @ResponseBody
+    public Map editpicture(Integer pictureId,String pictureName){
+        Integer i=userService.editPic(pictureName,pictureId);
+        Map map=new HashMap();
+        map.put("code",i);
+        return map;
+    }
+
+    //删除图片执行
+    @RequestMapping("/deletepicture")
+    @ResponseBody
+    public Map deletepicture(Integer Id){
+        Integer i=userService.deletePic(Id);
+        Map map=new HashMap();
+        map.put("code",i);
+        return map;
+    }
+
+
+
+
+
 }

@@ -9,6 +9,7 @@ import com.miaomiao.wedding.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -181,5 +182,22 @@ public class UserServiceimpl implements UserService {
     @Override
     public Integer insertpic(Picture pic) {
         return pictureMapper.insertpic(pic);
+    }
+
+    @Override
+    public Integer deletePic(Integer id) {
+        String filename=pictureMapper.picsrc(id).substring(11);
+        String image_path="F:\\喵喵婚纱\\用户上传图片\\"+filename;
+        File file =new File(image_path);
+        if(file.exists()){
+            file.delete();
+            System.out.println("文件已成功被删除");
+        }
+        return pictureMapper.deletePic(id);
+    }
+
+    @Override
+    public Integer editPic(String pictureName, Integer pictureId) {
+        return pictureMapper.editPic(pictureName,pictureId);
     }
 }

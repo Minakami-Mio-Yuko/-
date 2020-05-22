@@ -89,17 +89,17 @@
                 layer.confirm('真的删除行么？', function(index){
                     $.ajax({
                         type:'post',
-                        url:'/deletecameraman',
-                        data: {id:data.cameramanId},
+                        url:'/deletepicture',
+                        data: {Id:data.pictureId},
                         dataType:'json',
                         success:function (data) {
                             table.reload('test', {
-                                url: '/findunsendcamerman'
+                                url: '/manageallpicture'
                             });//表格重载
-                            layer.msg("删除摄影师成功")
+                            layer.msg("删除客照成功")
                         },
                         error:function () {
-                            layer.alert("删除摄影师失败")
+                            layer.alert("删除客照失败")
                         }
                     });//向服务端发送删除指令
                     layer.close(index);
@@ -160,10 +160,10 @@
                         table.reload('test', {
                             url: '/manageallpicture'
                         });//表格重载
-                        layer.msg("修改摄影师成功")
+                        layer.msg("修改客照成功")
                     },
                     error:function () {
-                        layer.alert("修改摄影师失败")
+                        layer.alert("修改客照失败")
                     }
                 });
 
