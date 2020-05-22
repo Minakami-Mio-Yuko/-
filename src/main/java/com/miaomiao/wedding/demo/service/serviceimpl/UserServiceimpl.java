@@ -2,6 +2,7 @@ package com.miaomiao.wedding.demo.service.serviceimpl;
 
 import com.miaomiao.wedding.demo.dao.CameramanMapper;
 import com.miaomiao.wedding.demo.dao.OrderMapper;
+import com.miaomiao.wedding.demo.dao.PictureMapper;
 import com.miaomiao.wedding.demo.dao.UserMapper;
 import com.miaomiao.wedding.demo.entity.*;
 import com.miaomiao.wedding.demo.service.UserService;
@@ -20,6 +21,8 @@ public class UserServiceimpl implements UserService {
     OrderMapper orderMapper;
     @Autowired
     CameramanMapper cameramanMapper;
+    @Autowired
+    PictureMapper pictureMapper;
 
     @Override
     public JsonVo init(Integer id) {
@@ -155,5 +158,11 @@ public class UserServiceimpl implements UserService {
     @Override
     public Integer deletecameraman(Integer id) {
         return cameramanMapper.deletecameraman(id);
+    }
+
+    @Override
+    public List<Picture> findAllpicture(Integer currpage, int pagesize) {
+        Integer currindex=(currpage-1)*pagesize;
+        return pictureMapper.findallpicture(currindex,pagesize);
     }
 }

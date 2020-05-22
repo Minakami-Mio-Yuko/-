@@ -143,6 +143,24 @@ public class Usercontroller {
     }
 
 
+    //返回客照页面
+    @RequestMapping("/guestpicture")
+    public String guestpicture(HttpSession session){
+        session.setAttribute("now","guestpicture");
+        return "guestpicture";
+    }
+
+    //客照流加载
+    @RequestMapping("/findguestpicture")
+    @ResponseBody
+    public Map guestpicture(Integer page){
+        Map map=new HashMap();
+        List list=userService.findAllpicture(page,3);
+        map.put("data",list);
+        return map;
+    }
+
+
 
 
 
