@@ -161,8 +161,25 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public List<Picture> findAllpicture(Integer currpage, int pagesize) {
+    public List<Picture> findAllpicture(Integer currpage, Integer pagesize) {
         Integer currindex=(currpage-1)*pagesize;
         return pictureMapper.findallpicture(currindex,pagesize);
+    }
+
+    @Override
+    public Integer pagecount(Integer pagesize) {
+        Integer count=pictureMapper.count();
+        Integer i=(count+pagesize-1)/(pagesize);
+        return i;
+    }
+
+    @Override
+    public List<Picture> manageallpicture() {
+        return pictureMapper.manageallpicture();
+    }
+
+    @Override
+    public Integer insertpic(Picture pic) {
+        return pictureMapper.insertpic(pic);
     }
 }

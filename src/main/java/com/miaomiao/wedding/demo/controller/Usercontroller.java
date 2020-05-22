@@ -156,7 +156,9 @@ public class Usercontroller {
     public Map guestpicture(Integer page){
         Map map=new HashMap();
         List list=userService.findAllpicture(page,3);
+        Integer i=userService.pagecount(3);
         map.put("data",list);
+        map.put("page",i);
         return map;
     }
 

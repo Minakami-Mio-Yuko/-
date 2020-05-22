@@ -1,17 +1,20 @@
 package com.miaomiao.wedding.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.miaomiao.wedding.demo.entity.CameraMan;
-import com.miaomiao.wedding.demo.entity.JsonVo;
-import com.miaomiao.wedding.demo.entity.Order;
-import com.miaomiao.wedding.demo.entity.User;
+import com.miaomiao.wedding.demo.entity.*;
 import com.miaomiao.wedding.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +49,8 @@ public class Managecontroller {
     public String sendcameraman(){return "ManageCameraman/sendcameraman";}
     @RequestMapping("/unsendcameraman")
     public String unsendcameraman(){return "ManageCameraman/unsendcameraman";}
+    @RequestMapping("/managepicture")
+    public String managepicture(){return "ManagePicture/managepicture";}
 
 
     //返回全部订单表格
@@ -185,6 +190,45 @@ public class Managecontroller {
     public Map editcameraman(CameraMan cameraMan){
         Integer i=userService.editcameraman(cameraMan);
         Map map=new HashMap();
+        map.put("code",i);
+        return map;
+    }
+
+    //返回所有图片表格
+    @RequestMapping("/manageallpicture")
+    @ResponseBody
+    public JsonVo manageallpicture(){
+        List list=userService.manageallpicture();
+        JsonVo<List<Order>> jsonVo=new JsonVo(0,"",list);
+        jsonVo.setCount(1000);
+        return jsonVo;
+    }
+
+
+    //上传客照
+    @RequestMapping("/UploadPic")
+    @ResponseBody
+    public Map<String,String> uploadpic(@RequestParam("file") MultipartFile file){
+        Map<String,String> map=new HashMap<>();
+        String filename=file.getOriginalFilename();
+        String image_path="F:\\喵喵婚纱\\用户上传图片\\"+filename;//真实路径
+        File imagefile=new File(image_path);
+        try {
+            file.transferTo(imagefile);
+            map.put("code","0");
+        } catch (IOException e) {
+            map.put("code","1");
+        }
+        return map;
+    }
+
+    @RequestMapping("/insertpic")
+    @ResponseBody
+    public Map insertpic(Picture pic){
+        String src="/pic/image/"+pic.getPictureSrc();
+        pic.setPictureSrc(src);
+        Map map=new HashMap();
+        Integer i=userService.insertpic(pic);
         map.put("code",i);
         return map;
     }

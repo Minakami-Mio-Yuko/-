@@ -29,5 +29,8 @@ public interface UserService {
     public List<CameraMan> unsendcameraman();
     public Integer editcameraman(CameraMan cameraMan);
     public Integer deletecameraman(Integer id);
-    public List<Picture> findAllpicture(Integer currpage,int pagesize);
+    public List<Picture> findAllpicture(Integer currpage,Integer pagesize);
+    public Integer pagecount(Integer pagesize);
+    public List<Picture> manageallpicture();
+    public Integer insertpic(Picture pic);
 }
